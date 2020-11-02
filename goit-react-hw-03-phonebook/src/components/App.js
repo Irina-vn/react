@@ -15,7 +15,7 @@ export default class extends Component {
   };
   componentDidMount() {
     const persistedContacts = localStorage.getItem("contacts");
-    if (persistedContacts !== 0) {
+    if (persistedContacts) {
       this.setState({
         contacts: JSON.parse(persistedContacts),
       });
@@ -28,7 +28,7 @@ export default class extends Component {
     // console.log("this.state:", this.state);
 
     if (prevState.contacts !== this.state.contacts) {
-      console.log("LocalStorage");
+      // console.log("LocalStorage");
       localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
     }
   }
@@ -39,10 +39,11 @@ export default class extends Component {
   };
 
   handlerFilter = () => {
-    const { filter, contacts } = this.state;
+    const { contacts, filter } = this.state;
+    // console.log(filter);
 
     return contacts.filter((contact) =>
-      contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+      contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   };
 
